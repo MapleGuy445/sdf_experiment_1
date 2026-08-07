@@ -27,3 +27,8 @@ code/Properties/*
 
 # Exported / standalone games
 Exports/
+
+example1.cpp
+example2.cpp
+example3.cpp
+example4.cpp
