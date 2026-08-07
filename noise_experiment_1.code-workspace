@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.shader": "slang",
+			"*.hlsl": "slang"
+		},
+		"slang.additionalSearchPaths": [
+			"T:\\SteamLibrary\\steamapps\\common\\sbox\\core\\shaders",
+			"T:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\base\\Assets\\shaders",
+			"T:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\menu\\Assets\\shaders",
+			"T:\\SteamLibrary\\steamapps\\common\\sbox\\addons\\tools\\Assets\\shaders",
+			"T:\\SteamLibrary\\steamapps\\common\\sbox\\editor\\ShaderGraph\\Assets\\shaders",
+			"T:\\SteamLibrary\\steamapps\\common\\sbox\\editor\\ActionGraph\\Assets\\shaders",
+			"T:\\SteamLibrary\\steamapps\\common\\sbox\\editor\\MovieMaker\\Assets\\shaders",
+			"T:\\SteamLibrary\\steamapps\\common\\sbox\\editor\\Hammer\\Assets\\shaders",
+			"T:\\SteamLibrary\\steamapps\\common\\sbox\\editor\\DooEditor\\Assets\\shaders",
+			"t:\\s&box projects\\noise_experiment_1\\Assets\\shaders",
+			"t:\\s&box projects\\noise_experiment_1\\Libraries\\duccsoft.libfreecam\\Assets\\shaders"
+		],
+		"slang.predefinedMacros": [],
+		"slang.workspaceFlavor": "vfx"
+	}
+}

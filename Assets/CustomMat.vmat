@@ -1,0 +1,9 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "sphere_sdf.shader"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+}

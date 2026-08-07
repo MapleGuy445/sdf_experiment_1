@@ -1,0 +1,1 @@
+This is my little experiment to get some kind of volumetric noise to render. I basically want "clouds" defined by 3d noise bounded by a cube. Im trying SDFs for now to get the basics of raymarching down and then im going to move onto raymarching through 3d noise with accumulated opacity.
