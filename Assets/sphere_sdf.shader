@@ -56,15 +56,17 @@ PS
         float3 ro = g_vCameraPositionWs;
         float3 rd = normalize(worldPos - ro);;
 
-        float tmin = 1.0;
-        float tmax = 2000.0;
-        float d = 0.0;
-        float t = tmin;
+        float tmin = 1.0; // min distance we start at
+        float tmax = 2000.0; // max distance we can reach
+        float d = 0.0;  // calculated signed distance from SDF
+        float t = tmin; // distance travel
         bool hit = false;
         for (int i = 0; i < 200 && t < tmax; i++)
         {
-            d = sdSphere(ro + rd * t, float3(0.0, 0.0, 0.0), radius);
-            if (d < 0.0001) { hit = true; break; }
+            float d1 = sdSphere(ro + rd * t, float3(0.0, 0.0, 0.0), radius);
+            float d2 = sdSphere(ro + rd * t, float3(30.0, 0.0, 0.0), radius);
+            d = max(d1, -d2);
+            if (d < 0.001) { hit = true; break; }
             t += d;
         }
 
