@@ -1,5 +1,6 @@
 MODES
 {
+    Depth();
     Forward();
 }
 
@@ -37,6 +38,12 @@ PS
     #include "postprocess/functions.hlsl"
     #include "procedural.hlsl"
 
+    struct SdfPixelOutput
+    {
+        float4 color : SV_Target0;
+        float depth : SV_Depth;
+    };
+
     Texture2D colorBuffer < Attribute("ColorBuffer"); SrgbRead(true); > ;
 
     float radius < Attribute("radius"); > ;
@@ -46,15 +53,16 @@ PS
         return length(p - cen) - rad;
     }
 
-	float4 MainPs( PixelInput i ) : SV_Target0
+    SdfPixelOutput MainPs( PixelInput i ) : SV_Target0
     {
+        SdfPixelOutput o;
         float2 uv = i.vPositionSs.xy / g_vRenderTargetSize.xy;
         float4 color = colorBuffer.SampleLevel(g_sBilinearMirror, uv, 0);
         float3 worldPos = Depth::GetWorldPosition(i.vPositionSs.xy);
         //Show depth buffer to screen
         //return float4(float3(Depth::GetNormalized(i.vPositionSs.xy)), 1.0);
         float3 ro = g_vCameraPositionWs;
-        float3 rd = normalize(worldPos - ro);;
+        float3 rd = normalize(worldPos - ro);
 
         float tmin = 1.0; // min distance we start at
         float tmax = 2000.0; // max distance we can reach
@@ -70,10 +78,13 @@ PS
             t += d;
         }
 
-        if (hit && t < Depth::GetLinear(i.vPositionSs.xy)) {
-            color = float4(1, 1, 1, 1);
-		}
+        float sceneDepth = Depth::GetLinear(i.vPositionSs.xy);
+        if (!hit || t >= sceneDepth)
+            discard;
 
-        return color;
+        o.color = float4(1, 1, 1, 1);
+        o.depth = 0;
+        
+        return o;
 	}
 }
