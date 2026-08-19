@@ -31,6 +31,7 @@ VS
 	PixelInput MainVs( VertexInput i )
 	{
 		PixelInput o = ProcessVertex( i );
+		// Add your vertex manipulation functions here
 		return FinalizeVertex( o );
 	}
 }
@@ -58,8 +59,9 @@ PS
         SdfPixelOutput o;
         Material m = Material::Init(i);
 
+        float3 worldPos = Depth::GetWorldPosition(i.vPositionSs.xy);
         float3 ro = g_vCameraPositionWs;
-        float3 rd = normalize(i.vPositionWithOffsetWs - ro);
+        float3 rd = normalize(worldPos - ro);
 
         float tmin = 1.0;
         float tmax = 4000.0;
@@ -69,22 +71,15 @@ PS
         for (int j = 0; j < 200 && t < tmax; j++)
         {
             float d = sdSphere(ro + rd * t, sphereOrigin, radius);
-            if (d < 0.001) { hit = true; break; }
+            if (d < 0.001 * t) { hit = true; break; }
             t += d;
         }
-
         if (!hit) discard;
 
         float3 hitPosWs = ro + rd * t;
 
         float4 hitPosPs = Position3WsToPs(hitPosWs);
         float hitDepth = hitPosPs.z / hitPosPs.w;
-
-        float2 screenUv = CalculateViewportUv(i.vPositionSs.xy);
-        float sceneDepth = Depth::Get(screenUv);
-
-        if (hitDepth < sceneDepth)
-            discard;
 
         m.Albedo = float3(1, 0, 0);
         o.color = ShadingModelStandard::Shade(m);

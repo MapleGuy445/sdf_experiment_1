@@ -328,7 +328,7 @@
       "__version": 2,
       "Flags": 0,
       "Name": "Cube",
-      "Position": "0,0,0",
+      "Position": "0,0.970785856,0",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
@@ -381,7 +381,7 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Radius": 10,
+          "Radius": 20,
           "SphereOrigin": {
             "_type": "gameobject",
             "go": "436ba2a8-15cd-4994-9e91-5c5b2849b1ec"
